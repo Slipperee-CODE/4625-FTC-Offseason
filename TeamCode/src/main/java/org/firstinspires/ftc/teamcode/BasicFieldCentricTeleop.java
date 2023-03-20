@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -46,6 +47,7 @@ public class BasicFieldCentricTeleop extends OpMode
 {
     private Robot robot = null;
     private HardwareMap hardwareMap = null;
+    private BNO055IMU imu;
 
 
     @Override
@@ -53,6 +55,13 @@ public class BasicFieldCentricTeleop extends OpMode
     {
         robot = new Robot(hardwareMap);
         robot.speedConstant = 0.5;
+
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        // Technically this is the default, however specifying it is clearer
+        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+        // Without this, data retrieving from the IMU throws an exception
+        imu.initialize(parameters);
     }
 
 
@@ -75,7 +84,7 @@ public class BasicFieldCentricTeleop extends OpMode
         double rx = -gamepad1.right_stick_x;
 
         // Read inverse IMU heading, as the IMU heading is CW positive
-        double botHeading = -robot.imu.getAngularOrientation().firstAngle;
+        double botHeading = -imu.getAngularOrientation().firstAngle;
 
         double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
         double rotY = x * Math.sin(botHeading) + y * Math.cos(botHeading);

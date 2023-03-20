@@ -13,8 +13,10 @@ public class Robot {
     public DcMotor RightBack = null;
     public DcMotor LeftFront = null;
     public DcMotor LeftBack = null;
-    public BNO055IMU imu;
+
     public double speedConstant = 1;
+
+    public Webcam webcam = null;
 
     HardwareMap hardwareMap = null;
     public ElapsedTime runtime = new ElapsedTime();
@@ -26,12 +28,7 @@ public class Robot {
     private void initialize(HardwareMap hwMap){
         hardwareMap = hwMap;
 
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        // Technically this is the default, however specifying it is clearer
-        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
-        // Without this, data retrieving from the IMU throws an exception
-        imu.initialize(parameters);
+        webcam = new Webcam(hardwareMap);
 
         //Assign all the Parts of the Robot Here
         RightFront = hardwareMap.dcMotor.get("RightFront"); // 0
