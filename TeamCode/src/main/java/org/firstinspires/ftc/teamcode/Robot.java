@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class Robot {
 
-    //initialize all the parts of the robot here
+    //initialize all the parts of the robot right here
     public DcMotor RightFront = null;
     public DcMotor RightBack = null;
     public DcMotor LeftFront = null;
