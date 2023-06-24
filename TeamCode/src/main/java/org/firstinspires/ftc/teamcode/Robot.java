@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -9,10 +8,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class Robot {
 
     //initialize all the parts of the robot here
-    public DcMotor RightFront = null;
-    public DcMotor RightBack = null;
-    public DcMotor LeftFront = null;
-    public DcMotor LeftBack = null;
+    public DcMotor rightFront = null;
+    public DcMotor rightBack = null;
+    public DcMotor leftFront = null;
+    public DcMotor leftBack = null;
 
     public double speedConstant = 1;
 
@@ -31,38 +30,38 @@ public class Robot {
         webcam = new Webcam(hardwareMap);
 
         //Assign all the Parts of the Robot Here
-        RightFront = hardwareMap.dcMotor.get("RightFront"); // 0
-        RightBack = hardwareMap.dcMotor.get("RightBack"); // 1
-        LeftFront = hardwareMap.dcMotor.get("LeftFront"); // 2
-        LeftBack = hardwareMap.dcMotor.get("LeftBack"); // 3
+        rightFront = hardwareMap.dcMotor.get("RightFront"); // 0
+        rightBack = hardwareMap.dcMotor.get("RightBack"); // 1
+        leftFront = hardwareMap.dcMotor.get("LeftFront"); // 2
+        leftBack = hardwareMap.dcMotor.get("LeftBack"); // 3
 
         //Set Motor Directions
-        RightFront.setDirection(DcMotorSimple.Direction.FORWARD);
-        RightBack.setDirection(DcMotorSimple.Direction.FORWARD);
-        LeftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        LeftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //Set Motor Mode
-        RightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        RightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        LeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        LeftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        RightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        RightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        LeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        LeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //Set Zero Power Behavior
-        RightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        RightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        LeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        LeftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //Set Motor Powers to 0
-        RightFront.setPower(0);
-        RightBack.setPower(0);
-        LeftFront.setPower(0);
-        LeftBack.setPower(0);
+        rightFront.setPower(0);
+        rightBack.setPower(0);
+        leftFront.setPower(0);
+        leftBack.setPower(0);
     }
 }

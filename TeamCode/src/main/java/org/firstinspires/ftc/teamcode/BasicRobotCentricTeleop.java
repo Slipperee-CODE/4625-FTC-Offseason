@@ -29,7 +29,6 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -80,10 +79,10 @@ public class BasicRobotCentricTeleop extends OpMode
         double frontRightPower = (y - x + rx) / denominator;
         double backRightPower = (y + x + rx) / denominator;
 
-        robot.RightFront.setPower(frontRightPower*robot.speedConstant);
-        robot.RightBack.setPower(backRightPower*robot.speedConstant);
-        robot.LeftFront.setPower(frontLeftPower*robot.speedConstant);
-        robot.LeftBack.setPower(backLeftPower*robot.speedConstant);
+        robot.rightFront.setPower(frontRightPower*robot.speedConstant);
+        robot.rightBack.setPower(backRightPower*robot.speedConstant);
+        robot.leftFront.setPower(frontLeftPower*robot.speedConstant);
+        robot.leftBack.setPower(backLeftPower*robot.speedConstant);
     }
 
 

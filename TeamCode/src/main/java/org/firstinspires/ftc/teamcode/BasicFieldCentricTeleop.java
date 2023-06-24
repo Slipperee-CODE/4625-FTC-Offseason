@@ -30,7 +30,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -98,10 +97,10 @@ public class BasicFieldCentricTeleop extends OpMode
         double frontLeftPower = (rotY + rotX + rx) / denominator;
         double backLeftPower = (rotY - rotX + rx) / denominator;
 
-        robot.RightFront.setPower(frontRightPower*robot.speedConstant);
-        robot.RightBack.setPower(backRightPower*robot.speedConstant);
-        robot.LeftFront.setPower(frontLeftPower*robot.speedConstant);
-        robot.LeftBack.setPower(backLeftPower*robot.speedConstant);
+        robot.rightFront.setPower(frontRightPower*robot.speedConstant);
+        robot.rightBack.setPower(backRightPower*robot.speedConstant);
+        robot.leftFront.setPower(frontLeftPower*robot.speedConstant);
+        robot.leftBack.setPower(backLeftPower*robot.speedConstant);
     }
 
 
