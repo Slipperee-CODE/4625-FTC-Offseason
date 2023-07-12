@@ -30,10 +30,10 @@ public class Robot {
         webcam = new Webcam(hardwareMap);
 
         //Assign all the Parts of the Robot Here
-        rightFront = hardwareMap.dcMotor.get("RightFront"); // 0
-        rightBack = hardwareMap.dcMotor.get("RightBack"); // 1
-        leftFront = hardwareMap.dcMotor.get("LeftFront"); // 2
-        leftBack = hardwareMap.dcMotor.get("LeftBack"); // 3
+        rightFront = hardwareMap.dcMotor.get("RightFront");
+        rightBack = hardwareMap.dcMotor.get("RightBack");
+        leftFront = hardwareMap.dcMotor.get("LeftFront");
+        leftBack = hardwareMap.dcMotor.get("LeftBack");
 
         //Set Motor Directions
         rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
