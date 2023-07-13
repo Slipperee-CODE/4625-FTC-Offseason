@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.customclasses.Robot;
 
 
 @TeleOp(name="BasicFieldCentricTeleop", group="Iterative Opmode")
@@ -53,7 +54,7 @@ public class BasicFieldCentricTeleop extends OpMode
     public void init()
     {
         robot = new Robot(hardwareMap);
-        robot.speedConstant = 0.5;
+        robot.SetSpeedConstant(0.5);
 
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -97,10 +98,10 @@ public class BasicFieldCentricTeleop extends OpMode
         double frontLeftPower = (rotY + rotX + rx) / denominator;
         double backLeftPower = (rotY - rotX + rx) / denominator;
 
-        robot.rightFront.setPower(frontRightPower*robot.speedConstant);
-        robot.rightBack.setPower(backRightPower*robot.speedConstant);
-        robot.leftFront.setPower(frontLeftPower*robot.speedConstant);
-        robot.leftBack.setPower(backLeftPower*robot.speedConstant);
+        robot.rF.SetAdjustedPower(frontRightPower);
+        robot.rB.SetAdjustedPower(backRightPower);
+        robot.lF.SetAdjustedPower(frontLeftPower);
+        robot.lB.SetAdjustedPower(backLeftPower);
     }
 
 
