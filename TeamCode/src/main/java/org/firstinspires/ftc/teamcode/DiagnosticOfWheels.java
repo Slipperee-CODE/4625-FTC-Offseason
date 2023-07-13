@@ -65,7 +65,8 @@ public class DiagnosticOfWheels extends OpMode
     Telemetry.Item modeItem;
 
     Telemetry.Item typeItem;
-    Telemetry.Item motorControllerItem; Telemetry.Item portNumItem; //Both of these in the same line
+    Telemetry.Item motorControllerItem;
+    Telemetry.Item portNumItem;
 
 
     @Override
