@@ -8,10 +8,10 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 public class Webcam {
-
-    public OpenCvCamera webcam;
+    public OpenCvCamera camera;
 
     HardwareMap hardwareMap = null;
+
 
     public Webcam(HardwareMap hwMap) { initialize(hwMap);}
 
@@ -20,14 +20,14 @@ public class Webcam {
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
 
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "webcam"), cameraMonitorViewId);
+        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "webcam"), cameraMonitorViewId);
 
-        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
             @Override
             public void onOpened()
             {
-                webcam.startStreaming(640,360, OpenCvCameraRotation.UPRIGHT);
+                camera.startStreaming(640,360, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
