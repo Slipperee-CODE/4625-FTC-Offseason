@@ -38,13 +38,13 @@ public class Robot {
     {
         hardwareMap = hwMap;
 
-        webcam = new Webcam(hardwareMap);
+        //webcam = new Webcam(hardwareMap);
 
         //Assign all the Parts of the Robot Here
-        rightFront = hardwareMap.dcMotor.get("rightFront");
-        rightBack = hardwareMap.dcMotor.get("rightBack");
-        leftFront = hardwareMap.dcMotor.get("leftFront");
-        leftBack = hardwareMap.dcMotor.get("leftBack");
+        rightFront = hardwareMap.get(DcMotor.class, "rightFront");
+        rightBack = hardwareMap.get(DcMotor.class, "rightBack");
+        leftFront = hardwareMap.get(DcMotor.class, "leftFront");
+        leftBack = hardwareMap.get(DcMotor.class, "leftBack");
 
         List<DcMotor> motors = Arrays.asList(rightFront, rightBack, leftFront, leftBack);
 

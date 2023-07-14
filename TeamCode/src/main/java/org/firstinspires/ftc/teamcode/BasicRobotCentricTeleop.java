@@ -45,7 +45,6 @@ import org.firstinspires.ftc.teamcode.customclasses.Robot;
 public class BasicRobotCentricTeleop extends OpMode
 {
     private Robot robot = null;
-    private HardwareMap hardwareMap = null;
 
 
     @Override

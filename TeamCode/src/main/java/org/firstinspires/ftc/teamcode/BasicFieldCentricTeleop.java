@@ -46,7 +46,6 @@ import org.firstinspires.ftc.teamcode.customclasses.Robot;
 public class BasicFieldCentricTeleop extends OpMode
 {
     private Robot robot = null;
-    private HardwareMap hardwareMap = null;
     private BNO055IMU imu;
 
 

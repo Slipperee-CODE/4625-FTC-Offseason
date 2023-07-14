@@ -48,10 +48,11 @@ import org.firstinspires.ftc.teamcode.customclasses.Robot;
 public class DiagnosticOfWheels extends OpMode
 {
     private Robot robot = null;
-    private HardwareMap hardwareMap = null;
 
     private CustomDcMotor currentMotor = null;
     private int currentMotorIndex = 0;
+    private int maxScreens = 2;
+    private int screenIndex = 0;
 
     String[] motorNames = new String[]{"Right Front", "Right Back", "Left Front", "Left Back"};
 
@@ -69,23 +70,21 @@ public class DiagnosticOfWheels extends OpMode
     Telemetry.Item portNumItem;
 
 
+    Telemetry.Item rightFrontMotorItem;
+    Telemetry.Item rightBackMotorItem;
+    Telemetry.Item leftFrontMotorItem;
+    Telemetry.Item leftBackMotorItem;
+
+
+
     @Override
     public void init()
     {
         robot = new Robot(hardwareMap);
+        robot.SetSpeedConstant(0.5);
 
         telemetry.setAutoClear(false);
-        motorItem = telemetry.addData("Motor", "");
-        directionItem = telemetry.addData("Direction", "");
-        powerItem = telemetry.addData("Power", 0);
-        posItem = telemetry.addData("Encoder Pos", 0);
-
-        zeroPowerBehaviorItem = telemetry.addData("Zero Power Behavior", "");
-        modeItem = telemetry.addData("Mode", "");
-
-        typeItem = telemetry.addData("Registered Type", "");
-        motorControllerItem = telemetry.addData("Connected to", "");
-        portNumItem = telemetry.addData("Connected to port", "");
+        CreateIndividualDiagnosticData();
     }
 
 
@@ -103,7 +102,36 @@ public class DiagnosticOfWheels extends OpMode
     @Override
     public void loop()
     {
-        MotorDiagnostic();
+        if (gamepad1.a)
+        {
+            screenIndex++;
+            if (screenIndex > maxScreens -1)
+            {
+                screenIndex = 0;
+            }
+
+            if (screenIndex == 0)
+            {
+                CreateIndividualDiagnosticData();
+            }
+            if (screenIndex == 1)
+            {
+                CreateGroupDiagnosticData();
+            }
+
+            sleep(500);
+        }
+
+        if (screenIndex == 0)
+        {
+            IndividualMotorDiagnostic();
+            IndividualPowerLogic();
+        }
+        if (screenIndex == 1)
+        {
+           GroupMotorDiagnostic();
+           GroupPowerLogic();
+        }
     }
 
 
@@ -114,7 +142,67 @@ public class DiagnosticOfWheels extends OpMode
     }
 
 
-    private void MotorDiagnostic()
+    private void IndividualPowerLogic()
+    {
+        robot.customMotors[currentMotorIndex].SetAdjustedPower(-gamepad1.left_stick_y);
+    }
+
+
+    private void CreateIndividualDiagnosticData()
+    {
+        telemetry.clearAll();
+        motorItem = telemetry.addData("Motor", "");
+        directionItem = telemetry.addData("Direction", "");
+        powerItem = telemetry.addData("Power", 0);
+        posItem = telemetry.addData("Encoder Pos", 0);
+
+        zeroPowerBehaviorItem = telemetry.addData("Zero Power Behavior", "");
+        modeItem = telemetry.addData("Mode", "");
+
+        typeItem = telemetry.addData("Registered Type", "");
+        motorControllerItem = telemetry.addData("Connected to", "");
+        portNumItem = telemetry.addData("Connected to port", "");
+    }
+
+
+    private void CreateGroupDiagnosticData()
+    {
+        telemetry.clearAll();
+        rightFrontMotorItem = telemetry.addData("rightFront - Encoder Value", 0);
+        rightBackMotorItem = telemetry.addData("rightBack - Encoder Value", 0);
+        leftFrontMotorItem = telemetry.addData("leftFront - Encoder Value", 0);
+        leftBackMotorItem = telemetry.addData("leftBack - Encoder Value", 0);
+    }
+
+
+    private void GroupMotorDiagnostic()
+    {
+        RefreshGroupMotorInfo();
+    }
+
+
+    private void GroupPowerLogic()
+    {
+        double rightSidePower = -gamepad1.right_stick_y;
+        robot.customMotors[0].SetAdjustedPower(rightSidePower);
+        robot.customMotors[1].SetAdjustedPower(rightSidePower);
+
+        double leftSidePower = -gamepad1.left_stick_y;
+        robot.customMotors[2].SetAdjustedPower(leftSidePower);
+        robot.customMotors[3].SetAdjustedPower(leftSidePower);
+    }
+
+
+    private void RefreshGroupMotorInfo()
+    {
+        rightFrontMotorItem.setValue(robot.customMotors[0].customMotor.getCurrentPosition());
+        rightBackMotorItem.setValue(robot.customMotors[1].customMotor.getCurrentPosition());
+        leftFrontMotorItem.setValue(robot.customMotors[2].customMotor.getCurrentPosition());
+        leftBackMotorItem.setValue(robot.customMotors[3].customMotor.getCurrentPosition());
+    }
+
+
+    private void IndividualMotorDiagnostic()
     {
         if (gamepad1.dpad_up)
         {
@@ -136,11 +224,11 @@ public class DiagnosticOfWheels extends OpMode
             sleep(500);
         }
 
-        RefreshMotorInfo();
+        RefreshIndividualMotorInfo();
     }
 
 
-    private void RefreshMotorInfo()
+    private void RefreshIndividualMotorInfo()
     {
         currentMotor = robot.customMotors[currentMotorIndex];
 
