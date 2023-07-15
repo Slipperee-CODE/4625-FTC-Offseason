@@ -29,7 +29,9 @@ public class AprilTagWebcam
     double cy = 221.506;
 
     // UNITS ARE METERS
-    double tagsize = 0.0635;
+    double tagsize = 0.17145; //6.75 inches for the page sized ones
+
+
 
     int numFramesWithoutDetection = 0;
 
