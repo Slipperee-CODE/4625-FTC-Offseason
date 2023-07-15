@@ -31,7 +31,7 @@ public class AprilTagWebcam
 
     // UNITS ARE METERS
     double tagsize = 0.17145; //6.75 inches for the page sized ones
-    
+
 
     int numFramesWithoutDetection = 0;
 
