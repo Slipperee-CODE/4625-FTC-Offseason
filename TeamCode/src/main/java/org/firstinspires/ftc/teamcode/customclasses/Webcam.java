@@ -27,7 +27,7 @@ public class Webcam {
             @Override
             public void onOpened()
             {
-                camera.startStreaming(640,360, OpenCvCameraRotation.UPRIGHT);
+                camera.startStreaming(960,544, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override

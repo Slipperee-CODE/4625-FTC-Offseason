@@ -56,14 +56,14 @@ public class BasicAprilTagDetection extends OpMode
     {
         robot = new Robot(hardwareMap);
         webcam = new Webcam(hardwareMap);
-        aprilTagWebcam = new AprilTagWebcam(webcam.camera);
+        aprilTagWebcam = new AprilTagWebcam(webcam.camera, telemetry);
     }
 
 
     @Override
     public void init_loop()
     {
-
+        aprilTagWebcam.DetectTags();
     }
 
 
@@ -74,7 +74,7 @@ public class BasicAprilTagDetection extends OpMode
     @Override
     public void loop()
     {
-        aprilTagWebcam.DetectTags();
+
     }
 
 

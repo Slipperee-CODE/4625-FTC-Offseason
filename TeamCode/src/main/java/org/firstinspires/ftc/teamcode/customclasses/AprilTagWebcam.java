@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -25,8 +26,8 @@ public class AprilTagWebcam
 
     double fx = 578.272;
     double fy = 578.272;
-    double cx = 402.145;
-    double cy = 221.506;
+    double cx = 480;
+    double cy = 272;
 
     // UNITS ARE METERS
     double tagsize = 0.17145; //6.75 inches for the page sized ones
@@ -39,12 +40,16 @@ public class AprilTagWebcam
     final float THRESHOLD_HIGH_DECIMATION_RANGE_METERS = 1.0f;
     final int THRESHOLD_NUM_FRAMES_NO_DETECTION_BEFORE_LOW_DECIMATION = 4;
 
+    Telemetry telemetryClass;
 
-    public AprilTagWebcam(OpenCvCamera passedCamera) { initialize(passedCamera);}
 
-    private void initialize(OpenCvCamera passedCamera)
+    public AprilTagWebcam(OpenCvCamera passedCamera, Telemetry passedTelemetry) { initialize(passedCamera, passedTelemetry);}
+
+    private void initialize(OpenCvCamera passedCamera, Telemetry passedTelemetry)
     {
         camera = passedCamera;
+
+        telemetryClass = passedTelemetry;
 
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
 
@@ -60,9 +65,9 @@ public class AprilTagWebcam
         // If there's been a new frame...
         if(detections != null)
         {
-            telemetry.addData("FPS", camera.getFps());
-            telemetry.addData("Overhead ms", camera.getOverheadTimeMs());
-            telemetry.addData("Pipeline ms", camera.getPipelineTimeMs());
+            telemetryClass.addData("FPS", camera.getFps());
+            telemetryClass.addData("Overhead ms", camera.getOverheadTimeMs());
+            telemetryClass.addData("Pipeline ms", camera.getPipelineTimeMs());
 
             // If we don't see any tags
             if(detections.size() == 0)
@@ -94,17 +99,17 @@ public class AprilTagWebcam
 
                     Orientation rot = Orientation.getOrientation(detection.pose.R, AxesReference.INTRINSIC, AxesOrder.YXZ, AngleUnit.DEGREES);
 
-                    telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
-                    telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));
-                    telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
-                    telemetry.addLine(String.format("Translation Z: %.2f feet", detection.pose.z*FEET_PER_METER));
-                    telemetry.addLine(String.format("Rotation Yaw: %.2f degrees", rot.firstAngle));
-                    telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", rot.secondAngle));
-                    telemetry.addLine(String.format("Rotation Roll: %.2f degrees", rot.thirdAngle));
+                    telemetryClass.addLine(String.format("\nDetected tag ID=%d", detection.id));
+                    telemetryClass.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));
+                    telemetryClass.addLine(String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
+                    telemetryClass.addLine(String.format("Translation Z: %.2f feet", detection.pose.z*FEET_PER_METER));
+                    telemetryClass.addLine(String.format("Rotation Yaw: %.2f degrees", rot.firstAngle));
+                    telemetryClass.addLine(String.format("Rotation Pitch: %.2f degrees", rot.secondAngle));
+                    telemetryClass.addLine(String.format("Rotation Roll: %.2f degrees", rot.thirdAngle));
                 }
             }
 
-            telemetry.update();
+            telemetryClass.update();
         }
     }
 }
