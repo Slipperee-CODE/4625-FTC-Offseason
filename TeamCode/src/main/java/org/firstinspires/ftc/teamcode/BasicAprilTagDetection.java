@@ -29,7 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -38,7 +38,7 @@ import org.firstinspires.ftc.teamcode.customclasses.Robot;
 import org.firstinspires.ftc.teamcode.customclasses.Webcam;
 
 
-@Autonomous(name="BasicAprilTagDetection", group="Autonomous")
+@TeleOp(name="BasicAprilTagDetection", group="Iterative Opmode")
 
 
 //@Disabled
