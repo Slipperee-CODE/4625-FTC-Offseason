@@ -137,12 +137,13 @@ public class AprilTagAlignTeleop extends OpMode
         telemetry.addLine("Hi! The A button is being held on gamepad1");
         telemetry.addData("Detected Tag Id", aprilTagWebcam.detectedTag.id);
         telemetry.update();
-        
+
 
         //GOALS:
             //GET BEARING TO 0
             //GET RANGE TO A SET NUMBER
             //USE 2 PID CONTROLLERS?
+            //PLAN PATHING
 
 
         frontRightPower = .1;
