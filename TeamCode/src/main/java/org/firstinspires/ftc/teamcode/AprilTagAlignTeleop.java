@@ -169,11 +169,11 @@ public class AprilTagAlignTeleop extends OpMode
     }
 
 
-    void SetPowerAllTheMotors(double RightFrontPower, double RightBackPower, double LeftFrontPower, double LeftBackPower)
+    void SetPowerAllTheMotors(double passedFrontRightPower, double passedBackRightPower, double passedFrontLeftPower, double passedBackLeftPower)
     {
-        frontRightPower = RightFrontPower;
-        backRightPower = RightBackPower;
-        frontLeftPower = LeftFrontPower;
-        backLeftPower = LeftBackPower;
+        frontRightPower = passedFrontRightPower;
+        backRightPower = passedBackRightPower;
+        frontLeftPower = passedFrontLeftPower;
+        backLeftPower = passedBackLeftPower;
     }
 }
