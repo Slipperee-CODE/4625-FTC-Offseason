@@ -32,11 +32,16 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.customclasses.AprilTagWebcam;
 import org.firstinspires.ftc.teamcode.customclasses.HoldButton;
 import org.firstinspires.ftc.teamcode.customclasses.PressButton;
 import org.firstinspires.ftc.teamcode.customclasses.Robot;
 import org.firstinspires.ftc.teamcode.customclasses.Webcam;
+import org.openftc.apriltag.AprilTagDetection;
 
 import java.util.function.Function;
 
@@ -67,7 +72,7 @@ public class AprilTagAlignTeleop extends OpMode
     public void init()
     {
         robot = new Robot(hardwareMap);
-        robot.SetSpeedConstant( 0.5);
+        robot.SetSpeedConstant( 0.75);
 
         webcam = new Webcam(hardwareMap);
         aprilTagWebcam = new AprilTagWebcam(webcam.camera, telemetry);
@@ -134,29 +139,24 @@ public class AprilTagAlignTeleop extends OpMode
 
     private void AprilTagAlign()
     {
-        telemetry.addLine("Hi! The A button is being held on gamepad1");
-        telemetry.addData("Detected Tag Id", aprilTagWebcam.detectedTag.id);
-        telemetry.update();
+        AprilTagDetection detectedTag = aprilTagWebcam.detectedTag;
 
+        if (aprilTagWebcam.detectedTag != null)
+        {
+            Orientation rot = Orientation.getOrientation(detectedTag.pose.R, AxesReference.INTRINSIC, AxesOrder.YXZ, AngleUnit.DEGREES);
 
-        //GOALS:
-            //GET BEARING TO 0
-            //GET RANGE TO A SET NUMBER
-            //USE 2 PID CONTROLLERS?
-            //PLAN PATHING
-
-
-        frontRightPower = .1;
-        backRightPower = .1;
-        frontLeftPower = .1;
-        backLeftPower = .1;
+            double motorPower = (-rot.firstAngle < 0 ? -0.2 : 0.2);
+            SetPowerAllTheMotors(motorPower, motorPower, -motorPower, -motorPower);
+        }
     }
 
 
     private void TelemetryTest()
     {
-        telemetry.addLine("Hi! The B button was pressed on gamepad1");
-        telemetry.update();
+        frontRightPower = -.1;
+        backRightPower = -.1;
+        frontLeftPower = -.1;
+        backLeftPower = -.1;
     }
 
 
@@ -166,5 +166,14 @@ public class AprilTagAlignTeleop extends OpMode
         robot.rB.SetAdjustedPower(backRightPower);
         robot.lF.SetAdjustedPower(frontLeftPower);
         robot.lB.SetAdjustedPower(backLeftPower);
+    }
+
+
+    void SetPowerAllTheMotors(double RightFrontPower, double RightBackPower, double LeftFrontPower, double LeftBackPower)
+    {
+        frontRightPower = RightFrontPower;
+        backRightPower = RightBackPower;
+        frontLeftPower = LeftFrontPower;
+        backLeftPower = LeftBackPower;
     }
 }

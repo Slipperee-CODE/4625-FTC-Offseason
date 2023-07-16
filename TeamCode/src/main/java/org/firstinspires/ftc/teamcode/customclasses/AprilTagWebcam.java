@@ -69,6 +69,8 @@ public class AprilTagWebcam
             telemetryClass.addData("Overhead ms", camera.getOverheadTimeMs());
             telemetryClass.addData("Pipeline ms", camera.getPipelineTimeMs());
 
+            detectedTag = null;
+
             // If we don't see any tags
             if(detections.size() == 0)
             {

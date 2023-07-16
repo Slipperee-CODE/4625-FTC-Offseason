@@ -80,7 +80,7 @@ public class BasicFieldCentricTeleop extends OpMode
     {
         double y = -gamepad1.left_stick_y;
         double x = gamepad1.left_stick_x;
-        double rx = -gamepad1.right_stick_x;
+        double rx = gamepad1.right_stick_x;
 
         // Read inverse IMU heading, as the IMU heading is CW positive
         double botHeading = -imu.getAngularOrientation().firstAngle;
