@@ -43,7 +43,11 @@ import org.firstinspires.ftc.teamcode.customclasses.Robot;
 import org.firstinspires.ftc.teamcode.customclasses.Webcam;
 import org.openftc.apriltag.AprilTagDetection;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
+
+import static java.util.Collections.max;
 
 
 @TeleOp(name="AprilTagAlignTeleop", group="Iterative Opmode")
@@ -140,13 +144,38 @@ public class AprilTagAlignTeleop extends OpMode
     private void AprilTagAlign()
     {
         AprilTagDetection detectedTag = aprilTagWebcam.detectedTag;
+        List<Float> angleList = new ArrayList<>();
+        List<Double> distanceList = new ArrayList<>();
+        float maxAngle;
+        float percentOfMaxAngle;
+        double turnPowerOffset = 0.0;
+        double forwardPowerOffset = 0.0;
+        double forwardPower = 0.2;
+        double turnPower = 0.2;
+        double distanceGoal = 2; //feet
+        double maxDistance;
+        double percentofMaxDistance;
 
-        if (aprilTagWebcam.detectedTag != null)
+        if (detectedTag != null)
         {
             Orientation rot = Orientation.getOrientation(detectedTag.pose.R, AxesReference.INTRINSIC, AxesOrder.YXZ, AngleUnit.DEGREES);
 
-            double motorPower = (-rot.firstAngle < 0 ? -0.2 : 0.2);
-            SetPowerAllTheMotors(motorPower, motorPower, -motorPower, -motorPower);
+            //Scale power based off the percent the current angle is relative to the highest (best) absolute angle detected (or the avg angle) + some offse
+            angleList.add(rot.firstAngle);
+            maxAngle = max(angleList);
+            percentOfMaxAngle = rot.firstAngle / maxAngle;
+
+            double distance = detectedTag.pose.z - distanceGoal;
+            distanceList.add(distance);
+            maxDistance = max(distanceList);
+            percentofMaxDistance = distance / maxDistance;
+
+            double totalTurnPower = turnPower*percentOfMaxAngle + turnPowerOffset;
+            double totalForwardPower = forwardPower*percentofMaxDistance + forwardPowerOffset;
+
+
+            double motorPower = (-rot.firstAngle < 0 ? -totalTurnPower : totalTurnPower);
+            SetPowerAllTheMotors(motorPower+totalForwardPower*percentofMaxDistance, motorPower+totalForwardPower*percentofMaxDistance, -motorPower+totalForwardPower*percentofMaxDistance, -motorPower+totalForwardPower*percentofMaxDistance);
         }
     }
 
