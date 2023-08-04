@@ -9,37 +9,24 @@ import org.firstinspires.ftc.teamcode.customclasses.Robot;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-@Autonomous(name = "RoadRunnerTesting")
-public class RoadRunnerTesting extends LinearOpMode
+@Autonomous(name = "RoadRunnerTesting2")
+public class RoadRunnerTesting2 extends LinearOpMode
 {
+    private SampleMecanumDrive drive;
+    private Robot robot;
+
+
     @Override
     public void runOpMode()
     {
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Robot robot = new Robot(hardwareMap);
+        drive = new SampleMecanumDrive(hardwareMap);
+        robot = new Robot(hardwareMap);
         int autoVersion = 0;
 
 
-        Pose2d startPose = new Pose2d(0, 0, Math.toRadians(0));
-        drive.setPoseEstimate(startPose);
-
-
-        Trajectory test = drive.trajectoryBuilder(new Pose2d())
-                .splineToSplineHeading(new Pose2d(10,10),Math.toRadians(180))
-                .addDisplacementMarker(() -> {
-                    //Run Robot Code to Start/Stop Systems Here Mid Trajectory
-                })
-                .splineToSplineHeading(new Pose2d(20,20),Math.toRadians(180))
-                .build();
-
-        Trajectory test2 = drive.trajectoryBuilder(test.end())
-                .splineToSplineHeading(new Pose2d(30,30),Math.toRadians(180))
-                .addDisplacementMarker(() -> {
-                    //Run Robot Code to Start/Stop Systems Here Mid Trajectory
-                })
-                .splineToSplineHeading(new Pose2d(0,0),Math.toRadians(180))
-                .build();
+        ArrayList<Trajectory> defaultTrajectories = CreateDefaultTrajectories();
 
 
         while (!isStarted() && !isStopRequested()) //INIT LOOP
@@ -54,13 +41,48 @@ public class RoadRunnerTesting extends LinearOpMode
                 //case 1
             case 2:
                 //case 2
+
             case 3:
                 //case 3
 
             default:
-                drive.followTrajectory(test);
-                //Run Robot Code to Start/Stop Systems Here In-Between Trajectories
-                drive.followTrajectory(test2);
+                FollowTrajectories(defaultTrajectories);
+        }
+    }
+
+
+    private ArrayList<Trajectory> CreateDefaultTrajectories()
+    {
+        Pose2d startPose = new Pose2d(0, 0, Math.toRadians(0));
+        drive.setPoseEstimate(startPose);
+
+        Trajectory test = drive.trajectoryBuilder(new Pose2d())
+                .splineToSplineHeading(new Pose2d(10,10),Math.toRadians(180))
+                //.waitSeconds(0.1) <- Not Working
+                .addDisplacementMarker(() -> {
+                    //Run Robot Code to Start/Stop Systems Here Mid Trajectory
+                })
+                .splineToSplineHeading(new Pose2d(20,20),Math.toRadians(180))
+                .build();
+
+        Trajectory test2 = drive.trajectoryBuilder(test.end())
+                .splineToSplineHeading(new Pose2d(30,30),Math.toRadians(180))
+                //.waitSeconds(0.1) <- Not Working
+                .addDisplacementMarker(() -> {
+                    //Run Robot Code to Start/Stop Systems Here Mid Trajectory
+                })
+                .splineToSplineHeading(new Pose2d(0,0),Math.toRadians(180))
+                .build();
+
+        return new ArrayList<>(Arrays.asList(test,test2));
+    }
+
+
+    private void FollowTrajectories(ArrayList<Trajectory> trajectories)
+    {
+        for (Trajectory trajectory : trajectories)
+        {
+            drive.followTrajectory(trajectory);
         }
     }
 
@@ -68,6 +90,7 @@ public class RoadRunnerTesting extends LinearOpMode
     private int AutoVersionUpdate()
     {
         //Update the Auto Version Here (April Tags, Color Detection, etc.)
+
         return 0;
     }
 }
