@@ -11,18 +11,22 @@ public class MeepMeepTesting {
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
+                .setConstraints(30, 30, 3.191869, Math.toRadians(188.30545181288747), 13.47)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0))
-                                .forward(30)
-                                .turn(Math.toRadians(90))
-                                .forward(30)
-                                .turn(Math.toRadians(90))
-                                .forward(30)
-                                .turn(Math.toRadians(90))
-                                .forward(30)
-                                .turn(Math.toRadians(90))
+                                .splineToSplineHeading(new Pose2d(38,38),Math.toRadians(-180))
                                 .build()
+                                /*
+                                .forward(30)
+                                .turn(Math.toRadians(90))
+                                .forward(30)
+                                .turn(Math.toRadians(90))
+                                .forward(30)
+                                .turn(Math.toRadians(90))
+                                .forward(30)
+                                .turn(Math.toRadians(90))
+                                 */
+                                //Displacement markers allow the robot to do actions during a Road Runner Trajectory
                 );
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_POWERPLAY_OFFICIAL)
