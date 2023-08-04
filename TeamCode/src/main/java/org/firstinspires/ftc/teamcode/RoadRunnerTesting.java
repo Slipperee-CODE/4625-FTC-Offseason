@@ -25,7 +25,7 @@ public class RoadRunnerTesting extends LinearOpMode
         Trajectory test = drive.trajectoryBuilder(new Pose2d())
                 .splineToSplineHeading(new Pose2d(10,10),Math.toRadians(180))
                 .addDisplacementMarker(() -> {
-                    //Run Robot Code to Start/Stop Systems Here
+                    //Run Robot Code to Start/Stop Systems Here Mid Trajectory
                 })
                 .splineToSplineHeading(new Pose2d(20,20),Math.toRadians(180))
                 .build();
@@ -33,13 +33,14 @@ public class RoadRunnerTesting extends LinearOpMode
         Trajectory test2 = drive.trajectoryBuilder(test.end())
                 .splineToSplineHeading(new Pose2d(30,30),Math.toRadians(180))
                 .addDisplacementMarker(() -> {
-                    //Run Robot Code to Start/Stop Systems Here
+                    //Run Robot Code to Start/Stop Systems Here Mid Trajectory
                 })
                 .splineToSplineHeading(new Pose2d(0,0),Math.toRadians(180))
                 .build();
 
 
         drive.followTrajectory(test);
+        //Run Robot Code to Start/Stop Systems Here In-Between Trajectories
         drive.followTrajectory(test2);
     }
 
