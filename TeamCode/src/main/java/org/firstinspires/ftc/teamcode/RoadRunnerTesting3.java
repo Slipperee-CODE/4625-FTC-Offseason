@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.customclasses.PoseStorage;
 import org.firstinspires.ftc.teamcode.customclasses.Robot;
 import org.firstinspires.ftc.teamcode.customclasses.TestRRMechanism;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
@@ -16,25 +17,25 @@ import java.util.Arrays;
 @Autonomous(name = "RoadRunnerTesting3")
 public class RoadRunnerTesting3 extends LinearOpMode
 {
-    private SampleMecanumDrive drive;
-    private Robot robot;
+    private SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+    private Robot robot = new Robot(hardwareMap);
 
-    private TestRRMechanism testRRMechanism;
+    private TestRRMechanism testRRMechanism = new TestRRMechanism(hardwareMap.get(DcMotor.class, "testMotor"));
 
 
-    private int autoVersion;
-    private AutoState autoState = AutoState.MAIN;
+    private int autoVersion = 0;
     private ArrayList<Trajectory> trajectoriesToFollow;
     private int trajectoryIndex = 0;
+    private PoseStorage poseStorage = new PoseStorage();
 
-    private ArrayList<Trajectory> defaultTrajectories;
-
-
+    private AutoState autoState = AutoState.MAIN;
     private enum AutoState {
         MAIN,
         NEXT,
         IDLE,
     }
+
+    private ArrayList<Trajectory> defaultTrajectories;
 
 
     @Override
@@ -58,11 +59,6 @@ public class RoadRunnerTesting3 extends LinearOpMode
 
     private void OnInit()
     {
-        drive = new SampleMecanumDrive(hardwareMap);
-        robot = new Robot(hardwareMap);
-        testRRMechanism = new TestRRMechanism(hardwareMap.get(DcMotor.class, "testMotor"));
-        autoVersion = 0;
-
         defaultTrajectories = CreateDefaultTrajectories();
         //Create other case trajectories here
     }
@@ -110,10 +106,14 @@ public class RoadRunnerTesting3 extends LinearOpMode
             case NEXT:
                 trajectoryIndex++;
                 drive.followTrajectoryAsync(trajectoriesToFollow.get(trajectoryIndex));
+                drive.update();
+                autoState = AutoState.MAIN;
 
             case IDLE:
-                //Don't do anything because the main auto is over
+                //Don't do anything because the auto is over
+
         }
+        poseStorage.currentPose = drive.getPoseEstimate(); //Always set pose estimate just in case auto stops early
     }
 
 

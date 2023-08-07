@@ -4,29 +4,24 @@ package org.firstinspires.ftc.teamcode.customclasses;
 public class PressButton
 {
     private boolean isPressed = false;
-    private Runnable function;
 
 
-    public PressButton(Runnable passedFunction){ initialize(passedFunction); }
+    public PressButton(){ initialize(); }
 
-    private void initialize(Runnable passedFunction)
-    {
-        function = passedFunction;
-    }
+    private void initialize() { }
 
 
-    public void Update(boolean buttonState)
+    public boolean Update(boolean buttonState)
     {
         if (buttonState && !isPressed)
         {
             isPressed = true;
-            function.run();
-            return;
         }
-
-        if (!buttonState && isPressed)
+        else
         {
             isPressed = false;
         }
+
+        return isPressed;
     }
 }

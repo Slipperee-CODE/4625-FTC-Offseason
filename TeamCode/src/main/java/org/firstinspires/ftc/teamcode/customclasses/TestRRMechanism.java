@@ -6,7 +6,7 @@ public class TestRRMechanism
 {
     private DcMotor customMotor = null;
 
-    public MotorState motorState;
+    public MotorState motorState = MotorState.OFF;
     public enum MotorState {
         ON,
         OFF,

@@ -44,13 +44,12 @@ import org.firstinspires.ftc.teamcode.customclasses.Robot;
 
 public class BasicRobotCentricTeleop extends OpMode
 {
-    private Robot robot = null;
+    private Robot robot = new Robot(hardwareMap);
 
 
     @Override
     public void init()
     {
-        robot = new Robot(hardwareMap);
         robot.SetSpeedConstant( 0.5);
     }
 

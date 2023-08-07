@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.customclasses;
+package org.firstinspires.ftc.teamcode.legacy;
 
 
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -7,25 +7,27 @@ public class HoldButton
 {
     private Gamepad overrideGamepad;
     private boolean overridable;
+    private Runnable function;
 
 
-    public HoldButton(Gamepad passedGamepad){ initialize(passedGamepad); }
+    public HoldButton(Runnable passedFunction, Gamepad passedGamepad){ initialize(passedFunction, passedGamepad); }
 
-    public HoldButton(){ initialize(); }
+    public HoldButton(Runnable passedFunction){ initialize(passedFunction); }
 
-    private void initialize(Gamepad passedGamepad)
+    private void initialize(Runnable passedFunction, Gamepad passedGamepad)
     {
+        function = passedFunction;
         overrideGamepad = passedGamepad;
         overridable = true;
     }
 
-    private void initialize()
+    private void initialize(Runnable passedFunction)
     {
         overridable = false;
     }
 
 
-    public boolean Update(boolean buttonState)
+    public void Update(boolean buttonState)
     {
         if (buttonState)
         {
@@ -33,15 +35,14 @@ public class HoldButton
             {
                 if (!OverrideCheck())
                 {
-                    return true;
+                    function.run();
                 }
             }
             else
             {
-                return true;
+                function.run();
             }
         }
-        return false;
     }
 
 
