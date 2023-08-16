@@ -161,6 +161,7 @@ public class RoadRunnerTeleop_RC extends OpMode
 
         if (b1HoldButton.Update(gamepad1.b))
         {
+            telemetry.addLine("b1 HoldButton Held");
             testRRMechanism.motorState = TestRRMechanism.MotorState.ON;
         }
         else
