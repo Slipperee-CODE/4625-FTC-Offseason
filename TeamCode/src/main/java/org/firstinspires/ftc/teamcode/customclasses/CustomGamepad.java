@@ -22,10 +22,10 @@ public class CustomGamepad {
         yDown = y && !py;
         aDown = a && !pa;
         bDown = b && !pb;
-        upDown   = gamepad.dpad_up && !pup;
-        downDown  = gamepad.dpad_down && !pdown;
-        leftDown  = gamepad.dpad_left && !pleft;
-        rightDown = gamepad.dpad_right && !pright;
+        upDown   = up && !pup;
+        downDown  = down && !pdown;
+        leftDown  = left && !pleft;
+        rightDown = right && !pright;
 
         px = x;
         py = y;
