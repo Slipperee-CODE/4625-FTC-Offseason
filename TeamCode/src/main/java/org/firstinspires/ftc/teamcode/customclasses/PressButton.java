@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.customclasses;
 
 public class PressButton
 {
-    private boolean isPressed = false;
+    private boolean isClicked = false;
 
 
     public PressButton(){ initialize(); }
@@ -13,15 +13,15 @@ public class PressButton
 
     public boolean Update(boolean buttonState)
     {
-        if (buttonState && !isPressed)
+        if (buttonState && !isClicked)
         {
-            isPressed = true;
+            isClicked = true;
         }
         else
         {
-            isPressed = false;
+            isClicked = false;
         }
 
-        return isPressed;
+        return isClicked;
     }
 }

@@ -32,9 +32,11 @@ public class TestRRMechanism
         {
             case ON:
                 customMotor.setPower(0.5);
+                break;
 
             case OFF:
                 customMotor.setPower(0);
+                break;
 
             default:
                 customMotor.setPower(0);

@@ -31,8 +31,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.customclasses.CustomDcMotor;
@@ -144,7 +142,7 @@ public class DiagnosticOfWheels extends OpMode
 
     private void IndividualPowerLogic()
     {
-        robot.customMotors[currentMotorIndex].SetAdjustedPower(-gamepad1.left_stick_y);
+        robot.customMotors[currentMotorIndex].SetPower(-gamepad1.left_stick_y);
     }
 
 
@@ -184,12 +182,12 @@ public class DiagnosticOfWheels extends OpMode
     private void GroupPowerLogic()
     {
         double rightSidePower = -gamepad1.right_stick_y;
-        robot.customMotors[0].SetAdjustedPower(rightSidePower);
-        robot.customMotors[1].SetAdjustedPower(rightSidePower);
+        robot.customMotors[0].SetPower(rightSidePower);
+        robot.customMotors[1].SetPower(rightSidePower);
 
         double leftSidePower = -gamepad1.left_stick_y;
-        robot.customMotors[2].SetAdjustedPower(leftSidePower);
-        robot.customMotors[3].SetAdjustedPower(leftSidePower);
+        robot.customMotors[2].SetPower(leftSidePower);
+        robot.customMotors[3].SetPower(leftSidePower);
     }
 
 

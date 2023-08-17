@@ -190,10 +190,10 @@ public class AprilTagAlignTeleop extends OpMode
 
     private void PowerDrivetrainMotors()
     {
-        robot.rF.SetAdjustedPower(frontRightPower);
-        robot.rB.SetAdjustedPower(backRightPower);
-        robot.lF.SetAdjustedPower(frontLeftPower);
-        robot.lB.SetAdjustedPower(backLeftPower);
+        robot.rF.SetPower(frontRightPower);
+        robot.rB.SetPower(backRightPower);
+        robot.lF.SetPower(frontLeftPower);
+        robot.lB.SetPower(backLeftPower);
     }
 
 

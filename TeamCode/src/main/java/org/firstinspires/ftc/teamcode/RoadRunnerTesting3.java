@@ -103,14 +103,19 @@ public class RoadRunnerTesting3 extends LinearOpMode
                 testRRMechanism.Update();
                 //Update any other mechanisms
 
+                break;
+
             case NEXT:
                 trajectoryIndex++;
                 drive.followTrajectoryAsync(trajectoriesToFollow.get(trajectoryIndex));
                 drive.update();
                 autoState = AutoState.MAIN;
+                break;
 
             case IDLE:
                 //Don't do anything because the auto is over
+
+                break;
 
         }
         poseStorage.currentPose = drive.getPoseEstimate(); //Always set pose estimate just in case auto stops early

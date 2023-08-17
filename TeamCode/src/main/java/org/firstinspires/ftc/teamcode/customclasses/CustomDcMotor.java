@@ -27,8 +27,14 @@ public class CustomDcMotor
     }
 
 
-    public void SetAdjustedPower(double power)
+    public void SetPower(double power)
     {
         customMotor.setPower(power * speedConstant);
+    }
+
+
+    public void SetRawPower(double power)
+    {
+        customMotor.setPower(power);
     }
 }
