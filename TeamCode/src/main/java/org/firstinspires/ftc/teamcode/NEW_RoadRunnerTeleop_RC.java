@@ -34,6 +34,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.checkerframework.checker.units.qual.C;
+import org.firstinspires.ftc.teamcode.customclasses.CustomGamepad;
 import org.firstinspires.ftc.teamcode.customclasses.CustomOpenCVWebcam;
 import org.firstinspires.ftc.teamcode.customclasses.HoldButton;
 import org.firstinspires.ftc.teamcode.customclasses.PoseStorage;
@@ -44,13 +46,13 @@ import org.firstinspires.ftc.teamcode.customclasses.Webcam;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 
-@TeleOp(name="RoadRunnerTeleop_RC", group="Iterative Opmode")
+@TeleOp(name="NEW_RoadRunnerTeleop_RC", group="Iterative Opmode")
 
 
 //@Disabled
 
 
-public class RoadRunnerTeleop_RC extends OpMode
+public class NEW_RoadRunnerTeleop_RC extends OpMode
 {
     private SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
     private Robot robot = new Robot(hardwareMap);
@@ -66,9 +68,8 @@ public class RoadRunnerTeleop_RC extends OpMode
     private Pose2d robotPose;
 
 
-    PressButton a1PressButton = new PressButton();
-    HoldButton b1HoldButton = new HoldButton();
-    HoldButton y1PressButton = new HoldButton();
+    CustomGamepad customGamepad1 = new CustomGamepad(gamepad1);
+    CustomGamepad customGamepad2 = new CustomGamepad(gamepad2);
 
 
     @Override
@@ -146,7 +147,11 @@ public class RoadRunnerTeleop_RC extends OpMode
     {
         //Insert most gamepad controls here (minus certain drivetrain/path following ones because of motor power overriding);
         //Use finite state machines in all robot mechanisms so that this section is as simple as possible
-        if (a1PressButton.Update(gamepad1.a))
+        customGamepad1.Update();
+        customGamepad2.Update();
+
+
+        if (customGamepad1.a)
         {
             testRRMechanism.motorState = TestRRMechanism.MotorState.ON;
         }
@@ -155,7 +160,7 @@ public class RoadRunnerTeleop_RC extends OpMode
             testRRMechanism.motorState = TestRRMechanism.MotorState.OFF;
         }
 
-        if (b1HoldButton.Update(gamepad1.b))
+        if (customGamepad1.b)
         {
             telemetry.addLine("b1 HoldButton Held");
             testRRMechanism.motorState = TestRRMechanism.MotorState.ON;
@@ -165,7 +170,7 @@ public class RoadRunnerTeleop_RC extends OpMode
             testRRMechanism.motorState = TestRRMechanism.MotorState.OFF;
         }
 
-        if (y1PressButton.Update(gamepad1.y))
+        if (customGamepad2.a)
         {
             customOpenCVWebcam.PrintData();
         }
