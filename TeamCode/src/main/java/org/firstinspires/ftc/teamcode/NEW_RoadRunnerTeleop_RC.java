@@ -54,15 +54,15 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 public class NEW_RoadRunnerTeleop_RC extends OpMode
 {
-    private SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-    private Robot robot = new Robot(hardwareMap);
+    private SampleMecanumDrive drive = null;
+    private Robot robot = null;
 
-    private Webcam webcam = new Webcam(hardwareMap);
-    CustomOpenCVWebcam customOpenCVWebcam = new CustomOpenCVWebcam(webcam.camera, telemetry);
+    private Webcam webcam = null;
+
+    CustomOpenCVWebcam customOpenCVWebcam = null;
 
 
-    private TestRRMechanism testRRMechanism = new TestRRMechanism(hardwareMap.get(DcMotor.class, "testMotor"));
-
+    private TestRRMechanism testRRMechanism = null;
 
     private PoseStorage poseStorage = new PoseStorage();
     private Pose2d robotPose;
@@ -75,8 +75,13 @@ public class NEW_RoadRunnerTeleop_RC extends OpMode
     @Override
     public void init()
     {
+        robot = new Robot(hardwareMap);
+        drive = new SampleMecanumDrive(hardwareMap);
         robot.SetSpeedConstant(0.5);
         drive.setPoseEstimate(poseStorage.currentPose);
+        //testRRMechanism = new TestRRMechanism(hardwareMap.get(DcMotor.class, "testMotor"));
+        webcam = new Webcam(hardwareMap);
+        customOpenCVWebcam = new CustomOpenCVWebcam(webcam.camera, telemetry);
     }
 
 
