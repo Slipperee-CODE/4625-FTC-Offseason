@@ -17,10 +17,10 @@ import java.util.Arrays;
 @Autonomous(name = "RoadRunnerTesting3")
 public class RoadRunnerTesting3 extends LinearOpMode
 {
-    private SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-    private Robot robot = new Robot(hardwareMap);
+    private SampleMecanumDrive drive = null;
+    private Robot robot = null;
 
-    private TestRRMechanism testRRMechanism = new TestRRMechanism(hardwareMap.get(DcMotor.class, "testMotor"));
+    private TestRRMechanism testRRMechanism = null;
 
 
     private int autoVersion = 0;
@@ -59,6 +59,11 @@ public class RoadRunnerTesting3 extends LinearOpMode
 
     private void OnInit()
     {
+        drive = new SampleMecanumDrive(hardwareMap);
+        robot = new Robot(hardwareMap);
+        testRRMechanism = new TestRRMechanism(hardwareMap.get(DcMotor.class, "testMotor"));
+
+
         defaultTrajectories = CreateDefaultTrajectories();
         //Create other case trajectories here
     }

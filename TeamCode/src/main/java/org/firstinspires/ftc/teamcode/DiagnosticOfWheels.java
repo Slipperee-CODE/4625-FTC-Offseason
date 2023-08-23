@@ -52,7 +52,7 @@ public class DiagnosticOfWheels extends OpMode
     private int maxScreens = 2;
     private int screenIndex = 0;
 
-    String[] motorNames = new String[]{"Right Front", "Right Back", "Left Front", "Left Back"};
+    String[] motorNames = null;
 
 
     Telemetry.Item motorItem;
@@ -78,6 +78,8 @@ public class DiagnosticOfWheels extends OpMode
     @Override
     public void init()
     {
+        motorNames = new String[]{"Right Front", "Right Back", "Left Front", "Left Back"};
+
         robot = new Robot(hardwareMap);
         robot.SetSpeedConstant(0.5);
 

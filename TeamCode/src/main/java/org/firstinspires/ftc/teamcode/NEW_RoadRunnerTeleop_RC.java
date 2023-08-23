@@ -68,8 +68,8 @@ public class NEW_RoadRunnerTeleop_RC extends OpMode
     private Pose2d robotPose;
 
 
-    CustomGamepad customGamepad1 = new CustomGamepad(gamepad1);
-    CustomGamepad customGamepad2 = new CustomGamepad(gamepad2);
+    CustomGamepad customGamepad1 = null;
+    CustomGamepad customGamepad2 = null;
 
 
     @Override
@@ -82,6 +82,9 @@ public class NEW_RoadRunnerTeleop_RC extends OpMode
         //testRRMechanism = new TestRRMechanism(hardwareMap.get(DcMotor.class, "testMotor"));
         webcam = new Webcam(hardwareMap);
         customOpenCVWebcam = new CustomOpenCVWebcam(webcam.camera, telemetry);
+
+        customGamepad1 = new CustomGamepad(gamepad1);
+        customGamepad2 = new CustomGamepad(gamepad2);
     }
 
 
