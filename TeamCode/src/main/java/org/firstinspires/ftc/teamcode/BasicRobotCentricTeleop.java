@@ -31,7 +31,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.customclasses.Robot;
 
@@ -79,10 +78,10 @@ public class BasicRobotCentricTeleop extends OpMode
         double frontRightPower = (y - x + rx) / denominator;
         double backRightPower = (y + x + rx) / denominator;
 
-        robot.rF.SetAdjustedPower(frontRightPower);
-        robot.rB.SetAdjustedPower(backRightPower);
-        robot.lF.SetAdjustedPower(frontLeftPower);
-        robot.lB.SetAdjustedPower(backLeftPower);
+        robot.rF.SetPower(frontRightPower);
+        robot.rB.SetPower(backRightPower);
+        robot.lF.SetPower(frontLeftPower);
+        robot.lB.SetPower(backLeftPower);
     }
 
 

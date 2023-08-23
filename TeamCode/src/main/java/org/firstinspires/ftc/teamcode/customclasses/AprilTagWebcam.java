@@ -24,10 +24,13 @@ public class AprilTagWebcam
 
     static final double FEET_PER_METER = 3.28084;
 
-    double fx = 578.272;
-    double fy = 578.272;
-    double cx = 480;
-    double cy = 272;
+    double fx = 835.64;
+    double fy = 835.64;
+    double cx = 459.22;
+    double cy = 261.933;
+
+    //Focals (pixels) - Fx: 835.64 Fy: 835.64
+    //Optical center - Cx: 459.22 Cy: 261.933
 
     // UNITS ARE METERS
     double tagsize = 0.17145; //6.75 inches for the page sized ones
@@ -68,6 +71,8 @@ public class AprilTagWebcam
             telemetryClass.addData("FPS", camera.getFps());
             telemetryClass.addData("Overhead ms", camera.getOverheadTimeMs());
             telemetryClass.addData("Pipeline ms", camera.getPipelineTimeMs());
+
+            detectedTag = null;
 
             // If we don't see any tags
             if(detections.size() == 0)

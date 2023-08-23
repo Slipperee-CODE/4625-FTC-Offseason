@@ -32,7 +32,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.customclasses.Robot;
 
@@ -80,7 +79,7 @@ public class BasicFieldCentricTeleop extends OpMode
     {
         double y = -gamepad1.left_stick_y;
         double x = gamepad1.left_stick_x;
-        double rx = -gamepad1.right_stick_x;
+        double rx = gamepad1.right_stick_x;
 
         // Read inverse IMU heading, as the IMU heading is CW positive
         double botHeading = -imu.getAngularOrientation().firstAngle;
@@ -97,10 +96,10 @@ public class BasicFieldCentricTeleop extends OpMode
         double frontLeftPower = (rotY + rotX + rx) / denominator;
         double backLeftPower = (rotY - rotX + rx) / denominator;
 
-        robot.rF.SetAdjustedPower(frontRightPower);
-        robot.rB.SetAdjustedPower(backRightPower);
-        robot.lF.SetAdjustedPower(frontLeftPower);
-        robot.lB.SetAdjustedPower(backLeftPower);
+        robot.rF.SetPower(frontRightPower);
+        robot.rB.SetPower(backRightPower);
+        robot.lF.SetPower(frontLeftPower);
+        robot.lB.SetPower(backLeftPower);
     }
 
 

@@ -19,15 +19,22 @@ public class CustomDcMotor
         customMotor = passedMotor;
         speedConstant = passedSpeedConstant;
 
-        customMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        customMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //customMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //customMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        customMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         customMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         customMotor.setPower(0);
     }
 
 
-    public void SetAdjustedPower(double power)
+    public void SetPower(double power)
     {
         customMotor.setPower(power * speedConstant);
+    }
+
+
+    public void SetRawPower(double power)
+    {
+        customMotor.setPower(power);
     }
 }

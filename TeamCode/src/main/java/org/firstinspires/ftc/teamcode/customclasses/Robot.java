@@ -22,7 +22,7 @@ public class Robot {
     public CustomDcMotor lB = null;
 
     public CustomDcMotor[] customMotors;
-    private List<DcMotor> motors = null;
+    private List<DcMotor> motors;
 
     public Webcam webcam = null;
 
@@ -46,7 +46,7 @@ public class Robot {
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
         leftBack = hardwareMap.get(DcMotor.class, "leftBack");
 
-        List<DcMotor> motors = Arrays.asList(rightFront, rightBack, leftFront, leftBack);
+        //motors = Arrays.asList(rightFront, rightBack, leftFront, leftBack);
 
         //Set Motor Directions
         rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
