@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode.customclasses;
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class CustomGamepad {
     public Gamepad gamepad; // has to be public because the Gamepad class is too complicated to fully wrap.
+    private OpMode opMode;
+
     public boolean x,y,a,b,up,down,left,right,xDown,yDown,aDown,bDown,upDown,downDown,leftDown,rightDown;
     private boolean px,py,pa,pb,pup,pdown,pleft,pright;
 
@@ -38,9 +41,21 @@ public class CustomGamepad {
     }
 
 
-    public CustomGamepad(Gamepad passedGamepad){
-        this.gamepad = passedGamepad;
+    public CustomGamepad(OpMode passedOpMode, int gamepadNum){
+        opMode = passedOpMode;
+
+        switch (gamepadNum){
+            case 1:
+                gamepad = opMode.gamepad1;
+                break;
+
+            case 2:
+                gamepad = opMode.gamepad2;
+                break;
+
+            default:
+                gamepad = opMode.gamepad1;
+                break;
+        }
     }
-
-
 }

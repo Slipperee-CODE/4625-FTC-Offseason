@@ -83,8 +83,8 @@ public class NEW_RoadRunnerTeleop_RC extends OpMode
         webcam = new Webcam(hardwareMap);
         customOpenCVWebcam = new CustomOpenCVWebcam(webcam.camera, telemetry);
 
-        customGamepad1 = new CustomGamepad(gamepad1);
-        customGamepad2 = new CustomGamepad(gamepad2);
+        customGamepad1 = new CustomGamepad(this, 1);
+        customGamepad2 = new CustomGamepad(this, 2);
     }
 
 
