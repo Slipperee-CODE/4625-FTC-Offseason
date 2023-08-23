@@ -159,7 +159,7 @@ public class NEW_RoadRunnerTeleop_RC extends OpMode
         customGamepad2.Update();
 
 
-        if (customGamepad1.a || customGamepad1.b)
+        if (customGamepad1.aToggle || customGamepad1.bToggle)
         {
             telemetry.addLine("a1 or b1 is being pressed");
             testRRMechanism.motorState = TestRRMechanism.MotorState.ON;
@@ -170,7 +170,7 @@ public class NEW_RoadRunnerTeleop_RC extends OpMode
         }
 
 
-        if (customGamepad2.a)
+        if (customGamepad1.x || customGamepad2.x)
         {
             customOpenCVWebcam.PrintData();
         }

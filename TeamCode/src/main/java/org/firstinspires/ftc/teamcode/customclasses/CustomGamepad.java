@@ -9,6 +9,8 @@ public class CustomGamepad {
 
     public boolean x,y,a,b,up,down,left,right,xDown,yDown,aDown,bDown,upDown,downDown,leftDown,rightDown;
     private boolean px,py,pa,pb,pup,pdown,pleft,pright;
+    public boolean xToggle,yToggle,aToggle,bToggle,upToggle,downToggle,leftToggle,rightToggle;
+
 
     public void Update() {
         //Rebinds the gamepads variables to our own use
@@ -38,6 +40,16 @@ public class CustomGamepad {
         pdown =down;
         pleft =left;
         pright =right;
+
+        //CAI -> ADDING BUTTON TOGGLE TO THE WRAPPER WITH THE XOR OPERATOR
+        xToggle ^= xDown;
+        yToggle ^= yDown;
+        aToggle ^= aDown;
+        bToggle ^= bDown;
+        upToggle ^= upDown;
+        downToggle ^= downDown;
+        leftToggle ^= leftDown;
+        rightToggle ^= rightDown;
     }
 
 
