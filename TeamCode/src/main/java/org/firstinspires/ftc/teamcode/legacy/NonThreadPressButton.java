@@ -1,12 +1,12 @@
-package org.firstinspires.ftc.teamcode.customclasses;
+package org.firstinspires.ftc.teamcode.legacy;
 
 
-public class PressButton
+public class NonThreadPressButton
 {
     private boolean isClicked = false;
 
 
-    public PressButton(){ initialize(); }
+    public NonThreadPressButton(){ initialize(); }
 
     private void initialize() { }
 

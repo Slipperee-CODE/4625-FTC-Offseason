@@ -1,17 +1,17 @@
-package org.firstinspires.ftc.teamcode.customclasses;
+package org.firstinspires.ftc.teamcode.legacy;
 
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-public class HoldButton
+public class NonThreadHoldButton
 {
     private Gamepad overrideGamepad;
     private boolean overridable;
 
 
-    public HoldButton(Gamepad passedGamepad){ initialize(passedGamepad); }
+    public NonThreadHoldButton(Gamepad passedGamepad){ initialize(passedGamepad); }
 
-    public HoldButton(){ initialize(); }
+    public NonThreadHoldButton(){ initialize(); }
 
     private void initialize(Gamepad passedGamepad)
     {

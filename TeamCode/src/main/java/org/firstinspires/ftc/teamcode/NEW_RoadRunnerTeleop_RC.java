@@ -34,12 +34,9 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.checkerframework.checker.units.qual.C;
 import org.firstinspires.ftc.teamcode.customclasses.CustomGamepad;
 import org.firstinspires.ftc.teamcode.customclasses.CustomOpenCVWebcam;
-import org.firstinspires.ftc.teamcode.customclasses.HoldButton;
 import org.firstinspires.ftc.teamcode.customclasses.PoseStorage;
-import org.firstinspires.ftc.teamcode.customclasses.PressButton;
 import org.firstinspires.ftc.teamcode.customclasses.Robot;
 import org.firstinspires.ftc.teamcode.customclasses.TestRRMechanism;
 import org.firstinspires.ftc.teamcode.customclasses.Webcam;

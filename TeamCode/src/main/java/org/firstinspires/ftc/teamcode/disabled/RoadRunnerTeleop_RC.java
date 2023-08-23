@@ -36,9 +36,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.customclasses.CustomOpenCVWebcam;
-import org.firstinspires.ftc.teamcode.customclasses.HoldButton;
+import org.firstinspires.ftc.teamcode.legacy.NonThreadHoldButton;
 import org.firstinspires.ftc.teamcode.customclasses.PoseStorage;
-import org.firstinspires.ftc.teamcode.customclasses.PressButton;
+import org.firstinspires.ftc.teamcode.legacy.NonThreadPressButton;
 import org.firstinspires.ftc.teamcode.customclasses.Robot;
 import org.firstinspires.ftc.teamcode.customclasses.TestRRMechanism;
 import org.firstinspires.ftc.teamcode.customclasses.Webcam;
@@ -67,9 +67,9 @@ public class RoadRunnerTeleop_RC extends OpMode
     private Pose2d robotPose;
 
 
-    PressButton a1PressButton = new PressButton();
-    HoldButton b1HoldButton = new HoldButton();
-    HoldButton y1PressButton = new HoldButton();
+    NonThreadPressButton a1PressButton = new NonThreadPressButton();
+    NonThreadHoldButton b1HoldButton = new NonThreadHoldButton();
+    NonThreadHoldButton y1PressButton = new NonThreadHoldButton();
 
 
     @Override
