@@ -3,12 +3,14 @@ package org.firstinspires.ftc.teamcode.customclasses;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior;
 import com.qualcomm.robotcore.hardware.DcMotor.RunMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import java.util.zip.ZipInputStream;
 
 public class PIDMotor {
+    private final Clock clock = new Clock();
     private final DcMotor motor;
     private final double p, i, d;
     private int errorSum;
@@ -20,6 +22,7 @@ public class PIDMotor {
         this.motor = motor;
         motor.setZeroPowerBehavior(ZeroPowerBehavior.BRAKE);
         this.p = p; this.i = i; this.d = d;
+
 
     }
     public void setTarget(int target) { this.target = target; }
@@ -47,11 +50,16 @@ public class PIDMotor {
         }
         return error;
     }
+
     public void Update() {
-        Update(null);
+        Update(null,(double)clock.tick());
     }
 
-    public void Update(Telemetry telemetry)
+    public void Update(double deltaTime) { Update(null,deltaTime);}
+
+    public void Update(Telemetry telemetry) { Update(telemetry,(double) clock.tick());}
+
+    public void Update(Telemetry telemetry,double deltaTime)
     {
         final double pOutput;
         final double iOutput;
@@ -62,12 +70,15 @@ public class PIDMotor {
         pOutput = p * error;
 
         //Must be negative to "slow" down the effects of a large spike
-        dOutput = -d * (error - lastError);// Theoretically we multiply by the deltaTime but its not necessary
+        dOutput = -d * (error - lastError) * deltaTime;// Theoretically we multiply by the deltaTime but its not necessary
         lastError = error;
 
-        errorSum += error; // Theoretically we multiply by the deltaTime but its not necessary
-
+        errorSum += error * deltaTime; // Theoretically we multiply by the deltaTime but its not necessary
+        if (error == 0) {
+            errorSum = 0;
+        }
         iOutput = i * errorSum;
+
 
         final double output = pOutput + iOutput + dOutput;
 
