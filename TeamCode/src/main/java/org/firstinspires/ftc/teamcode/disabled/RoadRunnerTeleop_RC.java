@@ -60,7 +60,7 @@ public class RoadRunnerTeleop_RC extends OpMode
     CustomOpenCVWebcam customOpenCVWebcam = new CustomOpenCVWebcam(webcam.camera, telemetry);
 
 
-    private TestRRMechanism testRRMechanism = new TestRRMechanism(hardwareMap.get(DcMotor.class, "testMotor"));
+    private TestRRMechanism testRRMechanism = new TestRRMechanism(hardwareMap);
 
 
     private PoseStorage poseStorage = new PoseStorage();

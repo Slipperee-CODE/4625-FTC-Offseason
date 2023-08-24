@@ -76,7 +76,7 @@ public class NEW_RoadRunnerTeleop_RC extends OpMode
         drive = new SampleMecanumDrive(hardwareMap);
         robot.SetSpeedConstant(0.5);
         drive.setPoseEstimate(poseStorage.currentPose);
-        testRRMechanism = new TestRRMechanism(hardwareMap.get(DcMotor.class, "testMotor"));
+        testRRMechanism = new TestRRMechanism(hardwareMap);
         webcam = new Webcam(hardwareMap);
         customOpenCVWebcam = new CustomOpenCVWebcam(webcam.camera, telemetry);
 
@@ -158,12 +158,18 @@ public class NEW_RoadRunnerTeleop_RC extends OpMode
 
         if (customGamepad1.aToggle || customGamepad1.bToggle)
         {
-            telemetry.addLine("a1 or b1 is being pressed");
+            telemetry.addLine("a1 or b1 is toggled");
             testRRMechanism.motorState = TestRRMechanism.MotorState.ON;
         }
         else
         {
             testRRMechanism.motorState = TestRRMechanism.MotorState.OFF;
+        }
+
+
+        if (customGamepad1.yDown)
+        {
+            telemetry.addLine("y1 is pressed");
         }
 
 
