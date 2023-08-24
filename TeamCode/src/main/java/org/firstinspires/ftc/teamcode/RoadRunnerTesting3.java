@@ -32,6 +32,7 @@ public class RoadRunnerTesting3 extends LinearOpMode
     private enum AutoState {
         MAIN,
         NEXT,
+        STOP,
         IDLE,
     }
 
@@ -106,6 +107,10 @@ public class RoadRunnerTesting3 extends LinearOpMode
             case MAIN:
                 drive.update();
                 testRRMechanism.Update();
+                telemetry.addLine("MainRunning");
+                telemetry.addData("Mechanism isBusy -> ", testRRMechanism.customMotor.isBusy());
+                telemetry.addData("Mechanism isOn -> ", testRRMechanism.motorState);
+                telemetry.update();
                 //Update any other mechanisms
 
                 break;
@@ -117,11 +122,14 @@ public class RoadRunnerTesting3 extends LinearOpMode
                 autoState = AutoState.MAIN;
                 break;
 
-            case IDLE:
-                //Don't do anything because the auto is over
-
+            case STOP:
+                drive.setMotorPowers(0,0,0,0);
+                autoState = AutoState.IDLE;
                 break;
 
+            case IDLE:
+                //Don't do anything because the auto is over
+                break;
         }
         poseStorage.currentPose = drive.getPoseEstimate(); //Always set pose estimate just in case auto stops early
     }
@@ -161,7 +169,8 @@ public class RoadRunnerTesting3 extends LinearOpMode
                 })
                 .splineToSplineHeading(new Pose2d(0,0),Math.toRadians(180))
                 .addDisplacementMarker(() -> {
-                    autoState = AutoState.IDLE; //End Auto
+                    drive.setMotorPowers(0,0,0,0);
+                    autoState = AutoState.STOP; //End Auto
                 })
                 .build();
 
