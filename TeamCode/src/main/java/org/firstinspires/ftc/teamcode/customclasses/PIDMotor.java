@@ -51,9 +51,7 @@ public class PIDMotor {
         return error;
     }
 
-    public void Update() {
-        Update(null,(double)clock.tick());
-    }
+    public void Update() { Update(null,(double)clock.tick()); }
 
     public void Update(double deltaTime) { Update(null,deltaTime);}
 
@@ -70,15 +68,14 @@ public class PIDMotor {
         pOutput = p * error;
 
         //Must be negative to "slow" down the effects of a large spike
-        dOutput = -d * (error - lastError) * deltaTime;// Theoretically we multiply by the deltaTime but its not necessary
+        dOutput = -d * (error - lastError) * deltaTime;
         lastError = error;
 
-        errorSum += error * deltaTime; // Theoretically we multiply by the deltaTime but its not necessary
+        errorSum += error * deltaTime;
         if (error == 0) {
             errorSum = 0;
         }
         iOutput = i * errorSum;
-
 
         final double output = pOutput + iOutput + dOutput;
 
