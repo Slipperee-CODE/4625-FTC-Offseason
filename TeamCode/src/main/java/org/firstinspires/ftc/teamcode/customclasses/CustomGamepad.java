@@ -4,8 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class CustomGamepad {
-    public Gamepad gamepad; // has to be public because the Gamepad class is too complicated to fully wrap.
+    public final Gamepad gamepad; // has to be public because the Gamepad class is too complicated to fully wrap.
     private OpMode opMode;
+
 
     public boolean x,y,a,b,up,down,left,right,xDown,yDown,aDown,bDown,upDown,downDown,leftDown,rightDown;
     private boolean px,py,pa,pb,pup,pdown,pleft,pright;
