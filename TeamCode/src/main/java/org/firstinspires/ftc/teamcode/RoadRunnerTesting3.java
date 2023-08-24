@@ -61,7 +61,7 @@ public class RoadRunnerTesting3 extends LinearOpMode
     {
         drive = new SampleMecanumDrive(hardwareMap);
         robot = new Robot(hardwareMap);
-        testRRMechanism = new TestRRMechanism(hardwareMap.get(DcMotor.class, "testMotor"));
+        testRRMechanism = new TestRRMechanism(hardwareMap);
 
 
         defaultTrajectories = CreateDefaultTrajectories();

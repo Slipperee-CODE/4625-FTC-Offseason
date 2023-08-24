@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.customclasses;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class TestRRMechanism
 {
@@ -13,12 +14,15 @@ public class TestRRMechanism
     }
 
 
-    public TestRRMechanism(DcMotor motor){ initialize(motor); }
-
-
-    private void initialize(DcMotor passedMotor)
+    public TestRRMechanism(HardwareMap hardwareMap)
     {
-        customMotor = passedMotor;
+        initialize(hardwareMap);
+    }
+
+
+    private void initialize(HardwareMap hardwareMap)
+    {
+        customMotor = hardwareMap.get(DcMotor.class, "testMotor");
 
         customMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         customMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
