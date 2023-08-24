@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class TestRRMechanism
 {
-    private DcMotor customMotor = null;
+    public DcMotor customMotor = null;
 
     public MotorState motorState = MotorState.OFF;
     public enum MotorState {
