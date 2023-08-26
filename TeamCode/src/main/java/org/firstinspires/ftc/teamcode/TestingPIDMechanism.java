@@ -36,5 +36,8 @@ public class TestingPIDMechanism extends OpMode
         }
 
         testPIDMechanism.Update(telemetry);
+        telemetry.addData("Encoder Value", testPIDMechanism.motor.getPos());
+        telemetry.addData("Attempting State", testPIDMechanism.motorState);
+        telemetry.update();
     }
 }
