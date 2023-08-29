@@ -36,6 +36,7 @@ public class PIDMotor {
 
         motor.setMode(RunMode.STOP_AND_RESET_ENCODER);
         motor.setMode(RunMode.RUN_WITHOUT_ENCODER);
+        motor.setPower(0); //Added this for safety, it may not be necessary - Cai
     }
 
     public double[] getPID() {
@@ -44,7 +45,7 @@ public class PIDMotor {
 
     public int getError()
     {
-        final int error= target - motor.getCurrentPosition();
+        final int error = target - motor.getCurrentPosition();
         if (Double.isNaN(lastError)) {
             lastError = error;
         }

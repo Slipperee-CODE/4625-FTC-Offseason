@@ -13,7 +13,7 @@ public class Basic_PID_TELEOP extends OpMode {
     PIDMotor motor = null;
     public void init() {
         telemetry.setMsTransmissionInterval(11);
-        motor = new PIDMotor(hardwareMap.get(DcMotor.class,"arm"),1,0,0);
+        motor = new PIDMotor(hardwareMap.get(DcMotor.class,"testMotor"),1,0,0); //Changed the motor name to match the one configured rn - Cai
         Test();
         motor.ResetPID();
         motor.setTarget(10_000);
