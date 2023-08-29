@@ -62,6 +62,12 @@ public class Robot {
         customMotors = new CustomDcMotor[]{rF, rB, lF, lB};
     }
 
+    public void setAllMotorsPower(double power) {
+        for (CustomDcMotor motor : customMotors) {
+            motor.SetPower(power);
+        }
+    }
+
 
     public void SetSpeedConstant(double passedSpeedConstant)
     {
