@@ -73,7 +73,7 @@ public class ExampleOpMode extends CustomOpMode{
                 })
                 .splineTo(new Vector2d(0,0),Math.toRadians(0))
                 .addDisplacementMarker(() -> {
-                    drive.setMotorPowers(0,0,0,0);
+                    drive.setMotorPowers(0,0,0,0); //IS THIS NECESARRY IF IT APPEARS IN THE "onStopLoop" function
                     autonomousState = AutoState.STOP; //End Auto
                 })
                 .build();
