@@ -13,9 +13,20 @@ public class PIDMotor {
     private final Clock clock = new Clock();
     private final DcMotor motor;
     private final double p, i, d;
-    private int errorSum;
+    private double errorSum;
     private double lastError = Double.NaN;
     private int target;
+    private double sampleTime = 0.005;
+
+    public void setSampleTime(double sampleTime) {
+        this.sampleTime = sampleTime;
+    }
+    private double clamp(double x, double min, double max) {
+        return Math.min(Math.max(x,min),max);
+    }
+    private double round(double x) {
+        return Math.round(x*1000)/1000.0;
+    }
 
     public PIDMotor(DcMotor motor,double p, double i, double d)
     {
@@ -25,7 +36,8 @@ public class PIDMotor {
 
 
     }
-    public void setTarget(int target) { this.target = target; }
+
+    public void setTarget(int target) { if (target != this.target) {this.target = target; this.errorSum = 0;} }
     public int getTarget() {return target;}
     public int getPos() {return motor.getCurrentPosition();}
     public void ResetPID()
@@ -69,20 +81,19 @@ public class PIDMotor {
         pOutput = p * error;
 
         //Must be negative to "slow" down the effects of a large spike
-        dOutput = -d * (error - lastError) * deltaTime;
+        dOutput = -d * (error - lastError) / deltaTime;
         lastError = error;
 
-        errorSum += error * deltaTime;
-        if (error == 0) {
-            errorSum = 0;
-        }
-        iOutput = i * errorSum;
+        errorSum += error * deltaTime * i;
+
+        errorSum = clamp(errorSum,-1.0,1.0);
+        iOutput = errorSum;
 
         final double output = pOutput + iOutput + dOutput;
 
-        motor.setPower(output);
+        motor.setPower(Math.tanh(output));
         if (telemetry != null) {
-            telemetry.addLine("P: " + pOutput + "  I: " + iOutput + " D: " + dOutput);
+            telemetry.addLine("Output -> P: " + round(pOutput) + "  I: " + round(iOutput) + " D: " + round(dOutput));
         }
     }
 

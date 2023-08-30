@@ -1,17 +1,16 @@
 package org.firstinspires.ftc.teamcode.customclasses;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 public abstract class CustomOpMode extends OpMode {
     // we are just using protected because it we don't want it to be accessed by EVERYTHING just its subclasses and friendly files
-    protected AutoState autonomousState = AutoState.MAIN;
+    protected RobotState autonomousState = RobotState.MAIN;
     protected Robot robot;
     protected SampleMecanumDrive drive;
 
-    protected enum AutoState {
+    protected enum RobotState {
         MAIN,
         NEXT,
         STOP,
@@ -28,7 +27,7 @@ public abstract class CustomOpMode extends OpMode {
         robot.setAllMotorsPower(0.0);
     }
 
-    protected abstract boolean handleState(AutoState state);
+    protected abstract boolean handleState(RobotState state);
 
     // Should return true if state was handled properly else return false;
     private boolean handleStateInternal() {

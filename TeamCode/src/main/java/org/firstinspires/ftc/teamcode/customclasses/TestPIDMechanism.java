@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.customclasses;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import android.sax.StartElementListener;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class TestPIDMechanism
 {
     public PIDMotor motor = null;
+    private boolean failedInit = false;
 
     public MotorState motorState = MotorState.IDLE;
     public enum MotorState {
@@ -19,20 +22,24 @@ public class TestPIDMechanism
     }
 
 
-    public TestPIDMechanism(HardwareMap hardwareMap)
-    {
+    public TestPIDMechanism(HardwareMap hardwareMap) throws Exception {
         initialize(hardwareMap);
     }
 
 
-    private void initialize(HardwareMap hardwareMap)
-    {
-        motor = new PIDMotor(hardwareMap.get(DcMotor.class,"testMotor"),1,0,0);
+    private void initialize(HardwareMap hardwareMap) throws Exception {
+        try {
+            motor = new PIDMotor(hardwareMap.get(DcMotor.class, "testMotor"), 0.0001, 0.000000, 0.000000);
+        } catch (Exception err) {
+            failedInit = true;
+            MissingHardware.addMissingHardware("PID MOTOR!");
+        }
     }
 
 
     public void Update(Telemetry telemetry)
     {
+        if (failedInit) return;
         switch(motorState)
         {
             case EXTENDED:
