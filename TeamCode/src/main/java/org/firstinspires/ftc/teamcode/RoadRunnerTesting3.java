@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.customclasses.CustomOpMode;
 import org.firstinspires.ftc.teamcode.customclasses.PoseStorage;
 import org.firstinspires.ftc.teamcode.customclasses.Robot;
 import org.firstinspires.ftc.teamcode.customclasses.TestRRMechanism;
@@ -150,12 +152,12 @@ public class RoadRunnerTesting3 extends LinearOpMode
         Trajectory test2;
 
         test = drive.trajectoryBuilder(new Pose2d())
-                .splineToSplineHeading(new Pose2d(10,10),Math.toRadians(180))
+                .splineTo(new Vector2d(10,10),Math.toRadians(0))
                 .addDisplacementMarker(() -> {
                     //Run Robot Code to Start/Stop Systems Here Mid Trajectory
                     testRRMechanism.motorState = TestRRMechanism.MotorState.ON;
                 })
-                .splineToSplineHeading(new Pose2d(20,20),Math.toRadians(180))
+                .splineTo(new Vector2d(20,20),Math.toRadians(0))
                 .addDisplacementMarker(() -> {
                     testRRMechanism.motorState = TestRRMechanism.MotorState.OFF;
                     autoState = AutoState.NEXT;
@@ -163,11 +165,11 @@ public class RoadRunnerTesting3 extends LinearOpMode
                 .build();
 
         test2 = drive.trajectoryBuilder(test.end())
-                .splineToSplineHeading(new Pose2d(30,30),Math.toRadians(180))
+                .splineTo(new Vector2d(30,30),Math.toRadians(0))
                 .addDisplacementMarker(() -> {
                     //Run Robot Code to Start/Stop Systems Here Mid Trajectory
                 })
-                .splineToSplineHeading(new Pose2d(0,0),Math.toRadians(180))
+                .splineTo(new Vector2d(0,0),Math.toRadians(0))
                 .addDisplacementMarker(() -> {
                     drive.setMotorPowers(0,0,0,0);
                     autoState = AutoState.STOP; //End Auto

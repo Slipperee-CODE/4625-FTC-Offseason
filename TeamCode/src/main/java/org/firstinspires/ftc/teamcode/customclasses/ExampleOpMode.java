@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.customclasses;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 
 import org.firstinspires.ftc.teamcode.RoadRunnerTesting3;
@@ -53,12 +54,12 @@ public class ExampleOpMode extends CustomOpMode{
         Trajectory test2;
 
         test = drive.trajectoryBuilder(new Pose2d())
-                .splineToSplineHeading(new Pose2d(10,10),Math.toRadians(180))
+                .splineTo(new Vector2d(10,10),Math.toRadians(0))
                 .addDisplacementMarker(() -> {
                     //Run Robot Code to Start/Stop Systems Here Mid Trajectory
                     testRRMechanism.motorState = TestRRMechanism.MotorState.ON;
                 })
-                .splineToSplineHeading(new Pose2d(20,20),Math.toRadians(180))
+                .splineTo(new Vector2d(20,20),Math.toRadians(0))
                 .addDisplacementMarker(() -> {
                     testRRMechanism.motorState = TestRRMechanism.MotorState.OFF;
                     autonomousState = AutoState.NEXT;
@@ -66,11 +67,11 @@ public class ExampleOpMode extends CustomOpMode{
                 .build();
 
         test2 = drive.trajectoryBuilder(test.end())
-                .splineToSplineHeading(new Pose2d(30,30),Math.toRadians(180))
+                .splineTo(new Vector2d(30,30),Math.toRadians(0))
                 .addDisplacementMarker(() -> {
                     //Run Robot Code to Start/Stop Systems Here Mid Trajectory
                 })
-                .splineToSplineHeading(new Pose2d(0,0),Math.toRadians(180))
+                .splineTo(new Vector2d(0,0),Math.toRadians(0))
                 .addDisplacementMarker(() -> {
                     drive.setMotorPowers(0,0,0,0);
                     autonomousState = AutoState.STOP; //End Auto
