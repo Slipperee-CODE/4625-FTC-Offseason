@@ -60,6 +60,10 @@ public class PIDMotor {
         final int error = target - motor.getCurrentPosition();
         if (Double.isNaN(lastError)) {
             lastError = error;
+        } else {
+            if(Math.signum((float) lastError) != Math.signum((float)error)){
+                onErrorCrossSign();
+            }
         }
         return error;
     }
@@ -70,6 +74,10 @@ public class PIDMotor {
 
     public void Update(Telemetry telemetry) { Update(telemetry,(double) clock.tick());}
 
+    public void Update(double deltaTime, Telemetry telemetry) {Update(telemetry,deltaTime);}
+    private void onErrorCrossSign() {
+        errorSum = 0.0;
+    }
     public void Update(Telemetry telemetry,double deltaTime)
     {
         final double pOutput;

@@ -3,12 +3,13 @@ package org.firstinspires.ftc.teamcode.customclasses;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.RoadRunnerTesting3;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
+@Autonomous(name="RoadRunnerRectangle")
 public class ExampleOpMode extends CustomOpMode{
     private TestRRMechanism testRRMechanism;
     private int trajectoryIndex;
@@ -20,8 +21,11 @@ public class ExampleOpMode extends CustomOpMode{
         trajectoriesToFollow = CreateDefaultTrajectories();
 
     }
-    protected boolean handleState(AutoState state) {
+    protected boolean handleState(RobotState state) {
         return true;
+    }
+    public void start() {
+        drive.followTrajectoryAsync(trajectoriesToFollow.get(trajectoryIndex));
     }
     protected void onMainLoop() {
         drive.update();
@@ -36,50 +40,28 @@ public class ExampleOpMode extends CustomOpMode{
         trajectoryIndex++;
         drive.followTrajectoryAsync(trajectoriesToFollow.get(trajectoryIndex));
         drive.update();
-        autonomousState = AutoState.MAIN;
+        autonomousState = RobotState.MAIN;
     }
     protected void onStopLoop() {
         super.onStopLoop();
-        autonomousState = AutoState.IDLE;
+        autonomousState = RobotState.IDLE;
     }
     protected void onIdleLoop() {
 
     }
     private ArrayList<Trajectory> CreateDefaultTrajectories()
     {
-        Pose2d startPose = new Pose2d(0, 0, Math.toRadians(0));
+        Pose2d startPose = new Pose2d(0, -10, Math.toRadians(0));
         drive.setPoseEstimate(startPose);
 
         Trajectory test;
-        Trajectory test2;
+        //Trajectory test2;
 
-        test = drive.trajectoryBuilder(new Pose2d())
-                .splineTo(new Vector2d(10,10),Math.toRadians(0))
-                .addDisplacementMarker(() -> {
-                    //Run Robot Code to Start/Stop Systems Here Mid Trajectory
-                    testRRMechanism.motorState = TestRRMechanism.MotorState.ON;
-                })
-                .splineTo(new Vector2d(20,20),Math.toRadians(0))
-                .addDisplacementMarker(() -> {
-                    testRRMechanism.motorState = TestRRMechanism.MotorState.OFF;
-                    autonomousState = AutoState.NEXT;
-                })
+        test = drive.trajectoryBuilder(startPose)
+                .splineTo(new Vector2d(0,10),Math.toRadians(0))
                 .build();
 
-        test2 = drive.trajectoryBuilder(test.end())
-                .splineTo(new Vector2d(30,30),Math.toRadians(0))
-                .addDisplacementMarker(() -> {
-                    //Run Robot Code to Start/Stop Systems Here Mid Trajectory
-                })
-                .splineTo(new Vector2d(0,0),Math.toRadians(0))
-                .addDisplacementMarker(() -> {
-                    drive.setMotorPowers(0,0,0,0); //IS THIS NECESARRY IF IT APPEARS IN THE "onStopLoop" function
-                    autonomousState = AutoState.STOP; //End Auto
-                })
-                .build();
-
-
-        return new ArrayList<>(Arrays.asList(test,test2));
+        return new ArrayList<>(Arrays.asList(test));
     }
 
 }

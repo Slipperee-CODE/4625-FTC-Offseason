@@ -28,7 +28,7 @@ public abstract class CustomOpMode extends OpMode {
     }
 
     protected abstract boolean handleState(RobotState state);
-
+    public abstract void start();
     // Should return true if state was handled properly else return false;
     private boolean handleStateInternal() {
         switch (autonomousState) {
@@ -50,7 +50,7 @@ public abstract class CustomOpMode extends OpMode {
     }
 
     public final void loop() {
-        if (handleStateInternal()) {
+        if (!handleStateInternal()) {
             telemetry.setMsTransmissionInterval(0);
             telemetry.addLine("autoState became an unknown value that was not handled in the loop!");
             telemetry.update();

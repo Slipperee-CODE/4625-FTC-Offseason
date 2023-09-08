@@ -29,7 +29,7 @@ public class TestPIDMechanism
 
     private void initialize(HardwareMap hardwareMap) throws Exception {
         try {
-            motor = new PIDMotor(hardwareMap.get(DcMotor.class, "testMotor"), 0.0001, 0.000000, 0.000000);
+            motor = new PIDMotor(hardwareMap.get(DcMotor.class, "testMotor"), 0.002, 0.0001, 0.000001);
         } catch (Exception err) {
             failedInit = true;
             MissingHardware.addMissingHardware("PID MOTOR!");
@@ -60,6 +60,6 @@ public class TestPIDMechanism
                 motorState = MotorState.IDLE;
         }
 
-        motor.Update(telemetry);
+        motor.Update(telemetry,.012);
     }
 }
